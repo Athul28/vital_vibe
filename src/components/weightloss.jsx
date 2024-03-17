@@ -5,15 +5,17 @@ import axios from "axios";
 function Weightloss() {
 
   const [message, setMessage] = useState('');
+
+
   const [formData, setFormData] = useState({
     name: "",
     age: "",
-    gender: "male", // Default to male
+    gender: "male",
     currentWeight: "",
     height: "",
-    experience: "beginner", // Default to beginner
+    experience: "beginner",
     workoutHours: "",
-    calories_burnt:100,
+    calories_to_burn:"",
   });
 
   const handleInputChange = (event) => {
@@ -131,8 +133,8 @@ function Weightloss() {
               <option value="advanced">Advanced</option>
             </select>
           </div>
-        </div>
-        <div className="plan-inputs max-sm:w-min m-auto">
+        
+        <div className="plan-inputs sm:ml-auto">
           <label htmlFor="hours">No. of workout hours per day:</label>
           <br />
           <input
@@ -145,6 +147,25 @@ function Weightloss() {
             onChange={handleInputChange}
           />
         </div>
+
+        <div className="plan-inputs">
+          <label htmlFor="calories_to_burn">Enter the calories you would like to burn</label>
+          <br />
+          <input type="number" 
+          className="plan-input"
+          placeholder="Enter calories"
+          required
+          min="100"
+          name="calories_to_burn"
+          value={formData.calories_to_burn}
+          onChange={handleInputChange}
+          />
+        </div>
+
+        </div>
+
+
+        {/* Submit button */}
         <div className="flex justify-center my-10">
           <button
             className="plans-button p-5 w-[200px] rounded-lg text-xl text-black"

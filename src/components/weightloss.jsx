@@ -3,9 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 function Weightloss() {
-
-  const [message, setMessage] = useState('');
-
+  const [prediction, setPrediction] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -15,7 +13,7 @@ function Weightloss() {
     height: "",
     experience: "beginner",
     workoutHours: "",
-    calories_to_burn:"",
+    calories_to_burn: "",
   });
 
   const handleInputChange = (event) => {
@@ -31,7 +29,7 @@ function Weightloss() {
         "http://localhost:5000/plan/weightloss",
         formData
       );
-      setMessage(response.data.message); // Handle response from the server
+      setPrediction(response.data.message); // Handle response from the server
     } catch (error) {
       console.log(error); // Handle error
     }
@@ -133,37 +131,38 @@ function Weightloss() {
               <option value="advanced">Advanced</option>
             </select>
           </div>
-        
-        <div className="plan-inputs sm:ml-auto">
-          <label htmlFor="hours">No. of workout hours per day:</label>
-          <br />
-          <input
-            type="number"
-            className="plan-input"
-            placeholder="Enter workout hours"
-            required
-            name="workoutHours"
-            value={formData.workoutHours}
-            onChange={handleInputChange}
-          />
-        </div>
 
-        <div className="plan-inputs">
-          <label htmlFor="calories_to_burn">Enter the calories you would like to burn</label>
-          <br />
-          <input type="number" 
-          className="plan-input"
-          placeholder="Enter calories"
-          required
-          min="100"
-          name="calories_to_burn"
-          value={formData.calories_to_burn}
-          onChange={handleInputChange}
-          />
-        </div>
+          <div className="plan-inputs sm:ml-auto">
+            <label htmlFor="hours">No. of workout hours per day:</label>
+            <br />
+            <input
+              type="number"
+              className="plan-input"
+              placeholder="Enter workout hours"
+              required
+              name="workoutHours"
+              value={formData.workoutHours}
+              onChange={handleInputChange}
+            />
+          </div>
 
+          <div className="plan-inputs">
+            <label htmlFor="calories_to_burn">
+              Enter the calories you would like to burn
+            </label>
+            <br />
+            <input
+              type="number"
+              className="plan-input"
+              placeholder="Enter calories"
+              required
+              min="100"
+              name="calories_to_burn"
+              value={formData.calories_to_burn}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
-
 
         {/* Submit button */}
         <div className="flex justify-center my-10">
@@ -175,7 +174,15 @@ function Weightloss() {
           </button>
         </div>
       </form>
-      {message && <p className="bg-white text-black w-full">{message}</p>}
+      {prediction && (
+        <div>
+          <p className="text-white font-kod text-center text-3xl my-2">Prediction : </p>
+        <p className="text-white font-kod text-center m-5 text-2xl">
+          Based on our model best excercise to burn the entered calories is :{" "}
+          {prediction}
+        </p>
+        </div>
+      )}
     </div>
   );
 }
